@@ -26,7 +26,6 @@ $('#login-form').onsubmit = async e => {
 };
 $('#logout').onclick = async () => { try { await fetch('/api/session', { method: 'POST', credentials: 'same-origin' }); } catch {} closePdf(); toLogin(); };
 const fmt = s => { const d = new Date(s); return s && !isNaN(d) ? d.toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Date not available'; };
-const ts = s => { const t = new Date(s).getTime(); return isNaN(t) ? 0 : t; };
 const card = d => `<article class="card"><h3>${esc(d.title)}</h3><p class="desc">${esc(d.description || '')}</p><p class="date">${fmt(d.date)}</p><button class="btn btn-sm" data-id="${esc(d.docId)}">View PDF</button></article>`;
 function render() {
   const q = $('#q').value.trim().toLowerCase();
@@ -34,11 +33,9 @@ function render() {
   const empty = '<p class="note" style="grid-column:1/-1">No published documents found.</p>';
   $('#count').textContent = list.length;
   $('#all').innerHTML = list.length ? list.map(card).join('') : empty;
-  const rec = [...docs].sort((a, b) => ts(b.date) - ts(a.date)).slice(0, 3);
-  $('#recent').innerHTML = rec.length ? rec.map(card).join('') : empty;
 }
 async function loadDash() {
-  show('dash'); $('#all').innerHTML = $('#recent').innerHTML = '<div class="skel"></div><div class="skel"></div>';
+  show('dash'); $('#all').innerHTML = '<div class="skel"></div><div class="skel"></div>';
   try { docs = (await api('/api/documents')).documents; render(); }
   catch (e) { if (e.message !== 'auth') $('#all').innerHTML = `<div class="alert" style="grid-column:1/-1">${esc(e.message)}</div>`; }
 }
