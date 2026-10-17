@@ -1,3 +1,4 @@
+document.getElementById('year').textContent = new Date().getFullYear();
 const $ = s => document.querySelector(s);
 const views = ['login', 'dash', 'view'];
 const show = v => { views.forEach(n => $('#v-' + n).hidden = n !== v); $('#logout').hidden = v === 'login'; window.scrollTo(0, 0); };
