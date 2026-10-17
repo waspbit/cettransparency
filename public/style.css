@@ -65,3 +65,13 @@ input:focus{outline:3px solid rgba(240,180,41,.55);border-color:var(--maroon-mid
 @media (max-width:860px){.orgs{border-left:0;border-top:3px solid var(--gold);padding:16px 0 0}}
 @media (max-width:699px){.logo{width:36px;height:36px}.wrap{width:min(1180px,100% - 1.5rem)}.header-row{min-height:60px}.brand-text small{display:none}.brand-text strong{font-size:1rem}.hero{padding:30px 0}.panel{padding:20px 16px}.grid.two{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Header: keep logos, title and buttons on one line */
+.header-row{flex-wrap:nowrap!important}
+.brand{flex:1 1 auto;min-width:0;gap:8px}
+.brand .logo{flex:none}
+.brand-text{min-width:0}
+.brand-text strong,.brand-text small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.icon-btn,#logout{flex:none}
+@media (max-width:699px){.logo{width:32px;height:32px}.brand-text strong{font-size:.9rem}#logout{padding:8px 12px}}
+@media (max-width:420px){.brand-text{display:none}}
